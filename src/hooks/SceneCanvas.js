@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as THREE from 'three';
+import GlowyText from '../stuff/glowyThingy.js';
 
 const SceneCanvas = () => {
 
@@ -10,6 +11,8 @@ const SceneCanvas = () => {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   const light = new THREE.DirectionalLight(0xffffff, 5);
+
+  let glowMaterial = null;
 
   useEffect(() => {
     // Configure the renderer
@@ -32,12 +35,12 @@ const SceneCanvas = () => {
     scene.add(light);
 
     // Position the camera
-    camera.position.set(0, 0, 5);
+    camera.position.set(0, 0, 8);
 
     // Load the model
     const loader = new GLTFLoader();
     loader.load(
-      '/spin.glb',
+      '/spin2.glb',
       (gltf) => {
         const model = gltf.scene;
 
@@ -70,16 +73,31 @@ const SceneCanvas = () => {
       undefined,
       (error) => console.error('An error occurred while loading the model:', error)
     );
+    
+    // Add GlowyText to the scene
+    const { text, glowingShell, material } = GlowyText('Enter', [0, -3.5, 0], 0x6f0099);
+    scene.add(glowingShell);
+    scene.add(text);
+     
+    glowMaterial = material;
 
     // animation loop
     const clock = new THREE.Clock();
     const animate = () => {
       const delta = clock.getDelta();
       mixers.current.forEach(mixer => mixer.update(delta));
+
+      // animate the glow
+      if (glowMaterial) {
+        const elapsedTime = clock.getElapsedTime();
+        glowMaterial.uniforms.opacity.value = 0.5 + 0.5 * Math.sin(elapsedTime * 2.0);
+        glowMaterial.uniforms.glowSharpness.value = 0.5 + 0.2 * Math.sin(elapsedTime * 3.0);
+      }
+
       renderer.render(scene, camera);
     };
     renderer.setAnimationLoop(animate);
-
+    
     // Handle window resizing
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -98,7 +116,9 @@ const SceneCanvas = () => {
     };
   }, []);  
   
-  return <div ref={mountRef} />;
+  return (
+    <div ref={mountRef} />
+  );
 };
 
 export default SceneCanvas;
