@@ -6,6 +6,9 @@ const SceneCanvas = () => {
 
   // create a ref to the scene, this will be used to append the renderer to the DOM react style
   const mountRef = useRef(null);
+  //create a ref to mixers
+  const mixers = useRef([]);
+
 
   useEffect(() => {
   // create scene and camera
@@ -28,6 +31,9 @@ const SceneCanvas = () => {
   light.position.set(0, 0, 10);
   scene.add(light);
 
+  // position camera
+  camera.position.z = 5;
+  camera.position.y = 1;
   
   // create a loader for pulling in a .glb or .gltf file made in Blender
   const loader = new GLTFLoader();
@@ -35,22 +41,36 @@ const SceneCanvas = () => {
     '/spin.glb',
     function(gltf) {
       const model = gltf.scene;
-      model.position.set(0, 0, 0);
-      model.scale.set(.8, .8, .8);
       scene.add(model);
+      if (gltf.animations && gltf.animations.length > 0) {
+        const mixer = new THREE.AnimationMixer(model);
+        gltf.animations.forEach(clip => {
+          const action = mixer.clipAction(clip);
+          action.play();
+          });
+          mixers.current.push(mixer);
+        }
     }, undefined, function(error) {
-    console.error(error);
-  });
+         console.error(error);
+   });
 
-  // position camera
-  camera.position.z = 5;
-  camera.position.y = 1;
-
-  //function to call animation loop
-  function animate() {
-    renderer.render(scene, camera);
-  }
+  // animation loop
+  const clock = new THREE.Clock();
+    function animate() {
+      const delta = clock.getDelta();
+      mixers.current.forEach(mixer => mixer.update(delta));
+      renderer.render(scene, camera);
+    }
   renderer.setAnimationLoop(animate);
+
+
+  // handle window resizing
+  const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener('resize', handleResize);
 
   // clean up function
   return () => {
