@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as THREE from 'three';
 import GlowyText from '../stuff/glowyThingy.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const SceneCanvas = () => {
 
@@ -35,7 +36,14 @@ const SceneCanvas = () => {
     scene.add(light);
 
     // Position the camera
-    camera.position.set(0, 0, 8);
+    camera.position.set(0, -1, 8);
+
+    // const controls = new OrbitControls(camera, renderer.domElement);
+    // controls.enableDamping = true;  // Smooth camera movement
+    // controls.dampingFactor = 0.1;   // How much to dampen (0 - 1)
+    // controls.enablePan = false;     // Disable panning
+    // controls.maxDistance = 50;      // Maximum zoom out distance
+    // controls.minDistance = 1;       // Minimum zoom in distance
 
     // Load the model
     const loader = new GLTFLoader();
@@ -75,11 +83,10 @@ const SceneCanvas = () => {
     );
     
     // Add GlowyText to the scene
-    const { text, glowingShell, material } = GlowyText('Enter', [0, -3.5, 0], 0x6f0099);
-    scene.add(glowingShell);
-    scene.add(text);
-     
-    glowMaterial = material;
+    // const { text, glowingShell, material } = GlowyText('Enter', [0, -3.5, 0], 0x6f0099);
+    // scene.add(glowingShell);
+    // scene.add(text);
+    GlowyText(scene, 'E n t e r', [-3.3, -5.5, 0], 0x6f0099);
 
     // animation loop
     const clock = new THREE.Clock();
