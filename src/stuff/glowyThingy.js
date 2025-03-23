@@ -48,6 +48,11 @@ const GlowyText = (scene, text, position = [0, 0, 0], color = 0xffffff) => {
           const width = 1.5;
 
           geometry.computeBoundingBox();
+          const boundingBox = geometry.boundingBox;
+          const centerX = (boundingBox.max.x + boundingBox.min.x) / 2;
+          const centerY = (boundingBox.max.y + boundingBox.min.y) / 2;
+          const centerZ = (boundingBox.max.z + boundingBox.min.z) / 2;
+          geometry.translate(-centerX, -centerY, -centerZ);
           const letterWidth = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
           offsetX += width;
           if (text[index + 1] === 'e') {
@@ -63,7 +68,7 @@ const GlowyText = (scene, text, position = [0, 0, 0], color = 0xffffff) => {
               glowInternalRadius: 5.0,
               glowColor: new THREE.Color('#00d5ff'),
               glowSharpness: 0.5,
-              opacity: 0.2,
+              opacity: 0.25,
               side: THREE.DoubleSide,
               depthTest: false
           });
@@ -74,59 +79,38 @@ const GlowyText = (scene, text, position = [0, 0, 0], color = 0xffffff) => {
           letterGroup.add(textMesh);
           letterGroup.add(shell);
 
-          letterGroup.userData = { index, originalY: position[1] };
+          // letterGroup.userData = { index, originalY: position[1] };
+          letterGroup.userData = { index, originalX: letterGroup.position.x, originalY: letterGroup.position.y };
+
           group.add(letterGroup);
 
-          // scene.add(shell);
-          // group.add(shell);
-          // group.add(textMesh);
-          // scene.add(group);
     });
     group.position.set(...position);
     scene.add(group);
+
+    // Animation
+    const animate = () => {
+      const elapsedTime = performance.now() / 1000;
+
+      group.children.forEach((letterGroup) => {
+        const { index, originalX, originalY } = letterGroup.userData;
+
+        // side to side
+        letterGroup.position.x = originalX + Math.sin(elapsedTime * WOBBLE_SPEED + index/2) * WOBBLE_INTENSITY;
+        // up and down
+        letterGroup.position.y = originalY + Math.sin(elapsedTime * FLOAT_SPEED + index/2) * FLOAT_INTENSITY;
+        // rotate
+        // letterGroup.rotation.x = Math.sin(elapsedTime * WOBBLE_SPEED * 0.8 + index) * 0.05;  
+        letterGroup.rotation.x = Math.sin(elapsedTime * WOBBLE_SPEED * 0.8 + index) * 0.08;  
+        letterGroup.rotation.z = Math.sin(elapsedTime * WOBBLE_SPEED * 0.8 + index) * 0.02;  
+        letterGroup.rotation.y = Math.sin(elapsedTime * WOBBLE_SPEED * 1.2 + index) * 0.03; 
+      });
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
   });
  };
 
 export default GlowyText;
-
-
-
-
-  //const textMesh = new Text();
-  //textMesh.text = text;
-
-  //// font options
-  //textMesh.font = '/SrirachaDisplay-Regular.otf'; 
-  //textMesh.fontSize = 2;
-  //textMesh.letterSpacing = .1;
-  //textMesh.color = color;
-  //textMesh.position.set(...position);
-
-  ////center it
-  //textMesh.anchorX = 'center';
-  //textMesh.anchorY = 'center';
-
-  //textMesh.sync();
-
-  //// invisible shell to apply shader
-  //const shell = textMesh.clone();
-  //shell.scale.multiplyScalar(1.05);
-
-  //// apply shader to shell
-  //const etherealMaterial = new FakeGlowMaterial({
-  //  falloff: 0.1,
-  //  glowInternalRadius: 6.0,
-  //  glowColor: new THREE.Color('#00d5ff'),
-  //  glowSharpness: 0.5,
-  //  opacity: 1.0,
-  //  // side: THREE.DoubleSide,
-  //  // depthTest: false
-  //});
-
-  //shell.material = etherealMaterial;
-  //shell.sync();
-
-
-  //return { text: textMesh, glowingShell: shell, material: etherealMaterial };
-//};
-

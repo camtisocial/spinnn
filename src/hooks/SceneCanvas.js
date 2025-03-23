@@ -86,7 +86,7 @@ const SceneCanvas = () => {
     // const { text, glowingShell, material } = GlowyText('Enter', [0, -3.5, 0], 0x6f0099);
     // scene.add(glowingShell);
     // scene.add(text);
-    GlowyText(scene, 'Enter', [-3.3, -5.8, 0], 0x6f0099);
+    GlowyText(scene, 'Enter', [-2.8, -5.2, 0], 0x6f0099);
 
     // animation loop
     const clock = new THREE.Clock();
