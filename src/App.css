@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap");
 
 .App {
   height: 0vh;
@@ -7,13 +8,56 @@
   justify-content: center;
 }
 
+.doto-font {
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "ROND" 0;
+}
+
 /* example for rendering text harmoniously with three js */
 .App-header {
   position: absolute;
   top: 20%;
-  font-size: 4rem;
+  font-family: "Doto", sans-serif;
+  font-size: 3rem;
+  color: white;
   width: 100%;
   text-align: center;
   z-index: 100;
   display: block;
+}
+
+.User-info {
+  position: absolute;
+  top: 20%;
+  font-family: "Doto", sans-serif;
+  font-size: 2.5vh;
+  overflow-wrap: break-word;
+  color: white;
+  width: 88%;
+  text-align: left;
+  z-index: 0;
+  display: block;
+}
+
+.Hover-area {
+  position: absolute;
+  bottom: 5%;
+  width: 33%;
+  height: 22%;
+  z-index: 101;
+  filter: blur(70px);
+  background-image: linear-gradient(120deg, #6f0099 34%, #00d5ff 100%);
+  opacity: .2;
+  transition: opacity 1.2s;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+}
+
+.Hover-area:hover {
+  opacity: 0.4;
 }
