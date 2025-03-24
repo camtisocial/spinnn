@@ -2,7 +2,6 @@
   "name": "spin",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://camtisocial.github.io/spin",
   "dependencies": {
     "@react-three/drei": "^10.0.4",
     "@react-three/fiber": "^9.1.0",
@@ -12,7 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "three": "^0.174.0",
     "troika-three-text": "^0.52.3",
     "web-vitals": "^2.1.4"
