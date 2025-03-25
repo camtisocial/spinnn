@@ -15,7 +15,7 @@ const PULSE_INTENSITY = 0.5;
 //this started as a react component but changed to a vanilla three js function to match the other scene I already made
 const GlowyText = (scene, text, position = [0, 0, 0], color = 0x31d43b) => {
   const loader = new FontLoader();
-  loader.load("/Sriracha_Display_Regular.json", (font) => {
+  loader.load("Sriracha_Display_Regular.json", (font) => {
     const group = new THREE.Group();
     let offsetX = 0;
 

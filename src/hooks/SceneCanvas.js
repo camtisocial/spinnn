@@ -69,7 +69,7 @@ const SceneCanvas = () => {
     // Load the model
     const loader = new GLTFLoader();
     loader.load(
-      "/spin2.glb",
+      "spin2.glb",
       (gltf) => {
         const model = gltf.scene;
 
