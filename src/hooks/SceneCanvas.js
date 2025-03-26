@@ -21,7 +21,7 @@ const Get2dCoords = (obj, camera, renderer) => {
   return { x: vector.x, y: vector.y };
 };
 
-const SceneCanvas = ({ setTriggerAnimation}) => {
+const SceneCanvas = ({ setTriggerAnimation }) => {
   const mountRef = useRef(null);
   const modelRef = useRef(null);
   const mixers = useRef([]);
@@ -108,7 +108,8 @@ const SceneCanvas = ({ setTriggerAnimation}) => {
           const tmpClipFirst = THREE.AnimationUtils.makeClipAdditive(firstClip);
           const firstAnimation = mixer.clipAction(tmpClipFirst);
 
-          const tmpClipSecond = THREE.AnimationUtils.makeClipAdditive(secondClip);
+          const tmpClipSecond =
+            THREE.AnimationUtils.makeClipAdditive(secondClip);
           const secondAnimation = mixer.clipAction(tmpClipSecond);
 
           const tmpClipThird = THREE.AnimationUtils.makeClipAdditive(thirdClip);
@@ -129,13 +130,15 @@ const SceneCanvas = ({ setTriggerAnimation}) => {
               thirdAnimation.enabled = true;
               thirdAnimation.reset();
               thirdAnimation.play();
-              console.log("Third animation triggered", thirdAnimation.getClip());
-
+              console.log(
+                "Third animation triggered",
+                thirdAnimation.getClip(),
+              );
             }
           };
 
           // Trigger the third animation after 10 seconds
-          // setTimeout(triggerThirdAnimation, 1500);
+          setTimeout(triggerThirdAnimation, 1500);
           if (setTriggerAnimation) {
             setTriggerAnimation(() => triggerThirdAnimation);
           }
@@ -163,11 +166,11 @@ const SceneCanvas = ({ setTriggerAnimation}) => {
           0.5 + 0.2 * Math.sin(elapsedTime * 3.0);
       }
 
-      // animate the pyramid thingy
-      // const model = scene.getObjectByName("model");
-      // if (model) {
-      //   model.rotation.y += delta * Math.PI * 0.1;
-      // }
+      //what the FUUUCK
+      const model = scene.getObjectByName("model");
+      if (model) {
+        model.rotation.y += delta * Math.PI * 0.1;
+      }
 
       renderer.render(scene, camera);
     };
@@ -189,7 +192,7 @@ const SceneCanvas = ({ setTriggerAnimation}) => {
       renderer.dispose();
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [setTriggerAnimation]);
 
   return <div ref={mountRef} />;
 };
