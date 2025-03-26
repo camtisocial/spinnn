@@ -103,11 +103,20 @@ const SceneCanvas = ({ setTriggerAnimation}) => {
 
         if (gltf.animations && gltf.animations.length > 0) {
           const mixer = new THREE.AnimationMixer(model);
-          const [firstAnimation, secondAnimation, thirdAnimation] =
-            gltf.animations.map((clip) => mixer.clipAction(clip));
+          const [firstClip, secondClip, thirdClip] = gltf.animations;
+
+          const tmpClipFirst = THREE.AnimationUtils.makeClipAdditive(firstClip);
+          const firstAnimation = mixer.clipAction(tmpClipFirst);
+
+          const tmpClipSecond = THREE.AnimationUtils.makeClipAdditive(secondClip);
+          const secondAnimation = mixer.clipAction(tmpClipSecond);
+
+          const tmpClipThird = THREE.AnimationUtils.makeClipAdditive(thirdClip);
+          const thirdAnimation = mixer.clipAction(tmpClipThird);
+
           firstAnimation.setLoop(THREE.LoopRepeat, Infinity);
           secondAnimation.setLoop(THREE.LoopRepeat, Infinity);
-          thirdAnimation.setLoop(THREE.LoopOnce, 0);
+          thirdAnimation.setLoop(THREE.LoopOnce, 1);
 
           firstAnimation.play();
           secondAnimation.play();
@@ -116,22 +125,20 @@ const SceneCanvas = ({ setTriggerAnimation}) => {
           mixers.current.push(mixer);
 
           const triggerThirdAnimation = () => {
-          console.log("Third Animation State: ", thirdAnimation.isRunning());
-
             if (!thirdAnimation.enabled) {
               thirdAnimation.enabled = true;
               thirdAnimation.reset();
               thirdAnimation.play();
-             console.log("After triggering: ", thirdAnimation.isRunning());
+              console.log("Third animation triggered", thirdAnimation.getClip());
 
             }
           };
+
+          // Trigger the third animation after 10 seconds
+          // setTimeout(triggerThirdAnimation, 1500);
           if (setTriggerAnimation) {
             setTriggerAnimation(() => triggerThirdAnimation);
           }
-
-          // Trigger the third animation after 10 seconds
-          // setTimeout(triggerThirdAnimation, 1000);
         }
       },
       undefined,
