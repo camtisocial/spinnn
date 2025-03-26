@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import React, { useEffect, useRef } from "react";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import * as THREE from "three";
 import GlowyText from "../stuff/glowyThingy.js";
@@ -27,8 +21,9 @@ const Get2dCoords = (obj, camera, renderer) => {
   return { x: vector.x, y: vector.y };
 };
 
-const SceneCanvas = () => {
+const SceneCanvas = ({ setTriggerAnimation}) => {
   const mountRef = useRef(null);
+  const modelRef = useRef(null);
   const mixers = useRef([]);
   const renderer = new THREE.WebGLRenderer();
   const scene = new THREE.Scene();
@@ -74,11 +69,16 @@ const SceneCanvas = () => {
 
     // Load the model
     const loader = new GLTFLoader();
+    if (modelRef.current) {
+      scene.remove(modelRef.current);
+    }
     loader.load(
-      "spin2.glb",
+      "spin3.glb",
       // "./spin2.glb",
       (gltf) => {
+        console.log("Model loaded:", gltf);
         const model = gltf.scene;
+        model.name = "model";
 
         // Apply Wireframe Material to All Meshes
         model.traverse((child) => {
@@ -96,15 +96,42 @@ const SceneCanvas = () => {
         const center = box.getCenter(new THREE.Vector3());
         model.position.sub(center);
 
-        scene.add(model);
+        // scene.add(model);
+        if (!scene.getObjectByName("model")) {
+          scene.add(model);
+        }
 
         if (gltf.animations && gltf.animations.length > 0) {
           const mixer = new THREE.AnimationMixer(model);
-          gltf.animations.forEach((clip) => {
-            const action = mixer.clipAction(clip);
-            action.play();
-          });
+          const [firstAnimation, secondAnimation, thirdAnimation] =
+            gltf.animations.map((clip) => mixer.clipAction(clip));
+          firstAnimation.setLoop(THREE.LoopRepeat, Infinity);
+          secondAnimation.setLoop(THREE.LoopRepeat, Infinity);
+          thirdAnimation.setLoop(THREE.LoopOnce, 0);
+
+          firstAnimation.play();
+          secondAnimation.play();
+          thirdAnimation.enabled = false;
+
           mixers.current.push(mixer);
+
+          const triggerThirdAnimation = () => {
+          console.log("Third Animation State: ", thirdAnimation.isRunning());
+
+            if (!thirdAnimation.enabled) {
+              thirdAnimation.enabled = true;
+              thirdAnimation.reset();
+              thirdAnimation.play();
+             console.log("After triggering: ", thirdAnimation.isRunning());
+
+            }
+          };
+          if (setTriggerAnimation) {
+            setTriggerAnimation(() => triggerThirdAnimation);
+          }
+
+          // Trigger the third animation after 10 seconds
+          // setTimeout(triggerThirdAnimation, 1000);
         }
       },
       undefined,
@@ -112,10 +139,6 @@ const SceneCanvas = () => {
         console.error("An error occurred while loading the model:", error),
     );
 
-    // Add GlowyText to the scene
-    // const { text, glowingShell, material } = GlowyText('Enter', [0, -3.5, 0], 0x6f0099);
-    // scene.add(glowingShell);
-    // scene.add(text);
     GlowyText(scene, "Enter", [-2.8, -5.2, 0], 0x6f0099);
 
     // animation loop
@@ -132,6 +155,12 @@ const SceneCanvas = () => {
         glowMaterial.uniforms.glowSharpness.value =
           0.5 + 0.2 * Math.sin(elapsedTime * 3.0);
       }
+
+      // animate the pyramid thingy
+      // const model = scene.getObjectByName("model");
+      // if (model) {
+      //   model.rotation.y += delta * Math.PI * 0.1;
+      // }
 
       renderer.render(scene, camera);
     };
