@@ -16,6 +16,7 @@ const PULSE_INTENSITY = 0.5;
 const GlowyText = (scene, text, position = [0, 0, 0], color = 0x31d43b) => {
   const loader = new FontLoader();
   loader.load("Sriracha_Display_Regular.json", (font) => {
+  // loader.load("/Sriracha_Display_Regular.json", (font) => {
     const group = new THREE.Group();
     let offsetX = 0;
 

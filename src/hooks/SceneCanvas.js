@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, createContext, useContext, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import * as THREE from "three";
 import GlowyText from "../stuff/glowyThingy.js";
@@ -70,6 +76,7 @@ const SceneCanvas = () => {
     const loader = new GLTFLoader();
     loader.load(
       "spin2.glb",
+      // "./spin2.glb",
       (gltf) => {
         const model = gltf.scene;
 

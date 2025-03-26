@@ -2,7 +2,6 @@
   "name": "spin",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://camtisocial.github.io/spinnn",
   "dependencies": {
     "@react-three/drei": "^10.0.4",
     "@react-three/fiber": "^9.1.0",
