@@ -138,7 +138,7 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
           };
 
           // Trigger the third animation after 10 seconds
-          setTimeout(triggerThirdAnimation, 1500);
+          // setTimeout(triggerThirdAnimation, 1500);
           if (setTriggerAnimation) {
             setTriggerAnimation(() => triggerThirdAnimation);
           }
