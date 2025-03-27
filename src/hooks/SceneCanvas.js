@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import * as THREE from "three";
-import GlowyText from "../stuff/glowyThingy.js";
+import GlowyText, { triggerDriftAnimation } from "../stuff/glowyThingy.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 // function to get 2d dimensions of three js object
@@ -127,11 +127,12 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
 
           const triggerThirdAnimation = () => {
             if (!thirdAnimation.enabled) {
+              triggerDriftAnimation();
               thirdAnimation.enabled = true;
               thirdAnimation.reset();
+              thirdAnimation.clampWhenFinished = true;
               thirdAnimation.play();
               console.log(
-                "Third animation triggered",
                 thirdAnimation.getClip(),
               );
             }
@@ -166,11 +167,10 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
           0.5 + 0.2 * Math.sin(elapsedTime * 3.0);
       }
 
-      //what the FUUUCK
       const model = scene.getObjectByName("model");
-      if (model) {
-        model.rotation.y += delta * Math.PI * 0.1;
-      }
+      // if (model) {
+      //   model.rotation.y += delta * Math.PI * 0.1;
+      // }
 
       renderer.render(scene, camera);
     };

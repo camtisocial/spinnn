@@ -11,12 +11,13 @@ const WOBBLE_INTENSITY = 0.02;
 const FLOAT_INTENSITY = 0.02;
 const PULSE_SPEED = 0.8;
 const PULSE_INTENSITY = 0.5;
+let storedGroup = null;
 
 //this started as a react component but changed to a vanilla three js function to match the other scene I already made
 const GlowyText = (scene, text, position = [0, 0, 0], color = 0x31d43b) => {
   const loader = new FontLoader();
   loader.load("Sriracha_Display_Regular.json", (font) => {
-  // loader.load("/Sriracha_Display_Regular.json", (font) => {
+    // loader.load("/Sriracha_Display_Regular.json", (font) => {
     const group = new THREE.Group();
     let offsetX = 0;
 
@@ -47,10 +48,8 @@ const GlowyText = (scene, text, position = [0, 0, 0], color = 0x31d43b) => {
       textMaterial.polygonOffset = true;
       textMaterial.polygonOffsetFactor = 1;
       textMaterial.polygonOffsetUnits = 1;
-      // const textMaterial = new THREE.MeshBasicMaterial({ color: color });
       const textMesh = new THREE.Mesh(geometry, textMaterial);
 
-      // textMesh.position.set(...position);
       textMesh.position.set(offsetX, 0, 0);
 
       const width = 1.5;
@@ -88,36 +87,65 @@ const GlowyText = (scene, text, position = [0, 0, 0], color = 0x31d43b) => {
       letterGroup.add(textMesh);
       letterGroup.add(shell);
 
-      // letterGroup.userData = { index, originalY: position[1] };
-      // letterGroup.userData = { index, originalX: letterGroup.position.x, originalY: letterGroup.position.y };
       letterGroup.userData = {
         index,
         originalX: letterGroup.position.x,
         originalY: letterGroup.position.y,
+        drifting: false,
+        driftIntensity: 0.10,
         textMaterial, //storing materials in a structure to mess with later
       };
-
       group.add(letterGroup);
     });
+
     group.position.set(...position);
     scene.add(group);
+    storedGroup = group; // Store the group for external access
 
     // Animation
     const animate = () => {
       const elapsedTime = performance.now() / 1000;
 
       group.children.forEach((letterGroup) => {
-        const { index, originalX, originalY, textMaterial } =
-          letterGroup.userData;
+        const {
+          index,
+          originalX,
+          originalY,
+          textMaterial,
+          drifting,
+          driftIntensity,
+          driftDirection,
+          rotationSpeed,
+          rotSpeedMod = .2,
+        } = letterGroup.userData;
+
+        //drift, runs when clicked
+        if (drifting && driftDirection) {
+          letterGroup.position.x += driftDirection.x * driftIntensity;
+          letterGroup.position.y += driftDirection.y * driftIntensity;
+          letterGroup.position.z += driftDirection.z * driftIntensity;
+
+          letterGroup.children.forEach((child) => {
+            child.rotation.x += rotationSpeed.x*rotSpeedMod;
+            child.rotation.y += rotationSpeed.y*rotSpeedMod;
+            child.rotation.z += rotationSpeed.z*rotSpeedMod;
+          });
+
+          letterGroup.rotation.x += rotationSpeed.x;
+          letterGroup.rotation.y += rotationSpeed.y;
+          letterGroup.rotation.z += rotationSpeed.z;
+
+        } else {
+          letterGroup.position.x =
+            originalX +
+            Math.sin(elapsedTime * WOBBLE_SPEED + index / 2) * WOBBLE_INTENSITY;
+          // up and down
+          letterGroup.position.y =
+            originalY +
+            Math.sin(elapsedTime * FLOAT_SPEED + index / 2) * FLOAT_INTENSITY;
+        }
 
         // side to side
-        letterGroup.position.x =
-          originalX +
-          Math.sin(elapsedTime * WOBBLE_SPEED + index / 2) * WOBBLE_INTENSITY;
-        // up and down
-        letterGroup.position.y =
-          originalY +
-          Math.sin(elapsedTime * FLOAT_SPEED + index / 2) * FLOAT_INTENSITY;
         // rotate
         letterGroup.rotation.x =
           Math.sin(elapsedTime * WOBBLE_SPEED * 0.8 + index) * 0.1;
@@ -136,9 +164,31 @@ const GlowyText = (scene, text, position = [0, 0, 0], color = 0x31d43b) => {
 
       requestAnimationFrame(animate);
     };
-
     animate();
+    return group;
   });
+};
+
+export const triggerDriftAnimation = () => {
+  if (storedGroup) {
+    console.log("Triggering drift animation", storedGroup);
+    storedGroup.children.forEach((letterGroup) => {
+      letterGroup.userData.drifting = true;
+
+      // Generate a random drift direction and speed for each letter
+      letterGroup.userData.driftDirection = new THREE.Vector3(
+        (Math.random() - 0.5) * 0.1, 
+        (Math.random() - 0.5) * 0.1, 
+        (Math.random() - 0.5) * 0.1, 
+      );
+
+      letterGroup.userData.rotationSpeed = new THREE.Vector3(
+        (Math.random() - 0.5) * 0.1,
+        (Math.random() - 0.5) * 0.1,
+        (Math.random() - 0.5) * 0.1,
+      );
+    });
+  }
 };
 
 export default GlowyText;
