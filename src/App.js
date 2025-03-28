@@ -20,7 +20,7 @@ function App() {
     if (triggerAnimation) triggerAnimation();
     setTimeout(() => {
       scrollDown();
-    }, 1000);
+    }, 800);
   };
 
   const scrollDown = () => {

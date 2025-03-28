@@ -73,7 +73,7 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
       scene.remove(modelRef.current);
     }
     loader.load(
-      "spin3.glb",
+      "spin4.glb",
       // "./spin2.glb",
       (gltf) => {
         console.log("Model loaded:", gltf);
@@ -103,7 +103,7 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
 
         if (gltf.animations && gltf.animations.length > 0) {
           const mixer = new THREE.AnimationMixer(model);
-          const [firstClip, secondClip, thirdClip] = gltf.animations;
+          const [firstClip, secondClip, thirdClip, fourthClip] = gltf.animations;
 
           const tmpClipFirst = THREE.AnimationUtils.makeClipAdditive(firstClip);
           const firstAnimation = mixer.clipAction(tmpClipFirst);
@@ -115,23 +115,37 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
           const tmpClipThird = THREE.AnimationUtils.makeClipAdditive(thirdClip);
           const thirdAnimation = mixer.clipAction(tmpClipThird);
 
-          firstAnimation.setLoop(THREE.LoopRepeat, Infinity);
-          secondAnimation.setLoop(THREE.LoopRepeat, Infinity);
-          thirdAnimation.setLoop(THREE.LoopOnce, 1);
+          const tmpClipFourth = THREE.AnimationUtils.makeClipAdditive(fourthClip);
+          const fourthAnimation = mixer.clipAction(tmpClipFourth);
 
-          firstAnimation.play();
-          secondAnimation.play();
-          thirdAnimation.enabled = false;
+          firstAnimation.setLoop(THREE.LoopRepeat, 1);
+          thirdAnimation.setLoop(THREE.LoopOnce, 1);
+          secondAnimation.setLoop(THREE.LoopRepeat, Infinity);
+          fourthAnimation.setLoop(THREE.LoopOnce, Infinity);
+
+          secondAnimation.play(); // ico idle
+          fourthAnimation.play(); // pyramid idle
+          firstAnimation.enabled = false; // ico spin
+          thirdAnimation.enabled = false; // pyramid spin
+
 
           mixers.current.push(mixer);
 
           const triggerThirdAnimation = () => {
             if (!thirdAnimation.enabled) {
+              //pyramid
               triggerDriftAnimation();
               thirdAnimation.enabled = true;
               thirdAnimation.reset();
               thirdAnimation.clampWhenFinished = true;
               thirdAnimation.play();
+
+              //ico
+              firstAnimation.enabled = true;
+              firstAnimation.reset();
+              firstAnimation.clampWhenFinished = true;
+              firstAnimation.play();
+
               console.log(thirdAnimation.getClip());
             }
           };
@@ -183,6 +197,7 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
     window.addEventListener("resize", handleResize);
 
     // add listener for scroll
+    // MAKE THIS RELATIVE TO SCREEN SIZE
     const handleScroll = (event) => {
       const scrollSpeed = 0.01; // Adjust this value to control the speed of the rotation
       const scrollY = window.scrollY;
