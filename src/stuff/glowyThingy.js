@@ -179,10 +179,8 @@ export const triggerDriftAnimation = () => {
 
         // Generate a random drift direction and speed for each letter
         letterGroup.userData.driftDirection = new THREE.Vector3(
-          // (Math.random() - 0.5) * 0.1, 
           .0,
-          // -Math.random() * 0.1, 
-          -.1,
+          -.1*window.innerHeight/800,
           (Math.random() - 0.5) * 0.1, 
         );
 

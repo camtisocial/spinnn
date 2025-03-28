@@ -20,14 +20,39 @@ function App() {
     if (triggerAnimation) triggerAnimation();
     setTimeout(() => {
       scrollDown();
-    }, 800);
+    }, 1000);
   };
 
   const scrollDown = () => {
-      window.scrollTo({
-        top: window.pageYOffset + window.innerHeight,
-        behavior: "smooth",
-      });
+    const start = window.pageYOffset;
+    const end = start + window.innerHeight;
+    const duration = 1000;
+    const startTime = performance.now();
+
+    const easeInOutQuint = (t, b, c, d) => {
+      t /= d;
+      return -c * t * (t - 2) + b;
+    };
+
+    const animateScroll = (currentTime) => {
+      const timeElapsed = currentTime - startTime;
+      const nextScrollY = easeInOutQuint(
+        timeElapsed,
+        start,
+        end - start,
+        duration,
+      );
+
+      window.scrollTo(0, nextScrollY);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animateScroll);
+      } else {
+        window.scrollTo(0, end);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
   };
 
   return (

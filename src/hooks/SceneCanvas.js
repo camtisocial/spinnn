@@ -74,7 +74,6 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
     }
     loader.load(
       "spin4.glb",
-      // "./spin2.glb",
       (gltf) => {
         console.log("Model loaded:", gltf);
         const model = gltf.scene;
@@ -150,8 +149,6 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
             }
           };
 
-          // Trigger the third animation after 10 seconds
-          // setTimeout(triggerThirdAnimation, 1500);
           if (setTriggerAnimation) {
             setTriggerAnimation(() => triggerThirdAnimation);
           }
@@ -196,10 +193,9 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
     };
     window.addEventListener("resize", handleResize);
 
-    // add listener for scroll
     // MAKE THIS RELATIVE TO SCREEN SIZE
     const handleScroll = (event) => {
-      const scrollSpeed = 0.01; // Adjust this value to control the speed of the rotation
+      const scrollSpeed = 0.01;
       const scrollY = window.scrollY;
       camera.position.y = (-scrollY * scrollSpeed)-1;
     };
