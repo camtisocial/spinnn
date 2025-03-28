@@ -1,11 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap");
 
+body::-webkit-scrollbar {
+  display: none; /*chrome*/
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /*firefox*/
+  scrollbar-width: none;  /*edge*/
+}
+
+.Background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+}
+
 .App {
   height: 0vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 .doto-font {
@@ -13,8 +36,7 @@
   font-optical-sizing: auto;
   font-weight: <weight>;
   font-style: normal;
-  font-variation-settings:
-    "ROND" 0;
+  font-variation-settings: "ROND" 0;
 }
 
 /* example for rendering text harmoniously with three js */
@@ -33,28 +55,25 @@
 .User-info {
   position: absolute;
   top: 20%;
+  left: 5%;
+  width: 80%;
   font-family: "Doto", sans-serif;
   font-size: 2.5vh;
-  overflow-wrap: break-word;
   color: white;
-  width: 88%;
   text-align: left;
-  z-index: 0;
-  display: block;
 }
 
 .Hover-area {
   position: absolute;
   bottom: 5%;
+  left: 33%;
   width: 33%;
   height: 22%;
-  z-index: 101;
   filter: blur(70px);
   background-image: linear-gradient(120deg, #6f0099 34%, #00d5ff 100%);
-  opacity: .3;
+  opacity: 0.3;
   transition: opacity 1.2s;
   border-radius: 100px;
-  border: none;
   cursor: pointer;
 }
 

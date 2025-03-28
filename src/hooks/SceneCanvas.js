@@ -132,9 +132,7 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
               thirdAnimation.reset();
               thirdAnimation.clampWhenFinished = true;
               thirdAnimation.play();
-              console.log(
-                thirdAnimation.getClip(),
-              );
+              console.log(thirdAnimation.getClip());
             }
           };
 
@@ -184,6 +182,15 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
     };
     window.addEventListener("resize", handleResize);
 
+    // add listener for scroll
+    const handleScroll = (event) => {
+      const scrollSpeed = 0.01; // Adjust this value to control the speed of the rotation
+      const scrollY = window.scrollY;
+      camera.position.y = (-scrollY * scrollSpeed)-1;
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+
     // cleanup function
     return () => {
       if (mountRef.current) {
@@ -192,7 +199,8 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
       renderer.dispose();
       window.removeEventListener("resize", handleResize);
     };
-  }, [setTriggerAnimation]);
+    // }, [setTriggerAnimation]);
+  }, []);
 
   return <div ref={mountRef} />;
 };

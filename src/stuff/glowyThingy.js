@@ -121,7 +121,8 @@ const GlowyText = (scene, text, position = [0, 0, 0], color = 0x31d43b) => {
 
         //drift, runs when clicked
         if (drifting && driftDirection) {
-          letterGroup.position.x += driftDirection.x * driftIntensity;
+
+          letterGroup.position.x += (driftDirection.x * driftIntensity+index/200)-.009;
           letterGroup.position.y += driftDirection.y * driftIntensity;
           letterGroup.position.z += driftDirection.z * driftIntensity;
 
@@ -170,25 +171,29 @@ const GlowyText = (scene, text, position = [0, 0, 0], color = 0x31d43b) => {
 };
 
 export const triggerDriftAnimation = () => {
-  if (storedGroup) {
-    console.log("Triggering drift animation", storedGroup);
-    storedGroup.children.forEach((letterGroup) => {
-      letterGroup.userData.drifting = true;
+  setTimeout(() => {
+    if (storedGroup) {
+      console.log("Triggering drift animation", storedGroup);
+      storedGroup.children.forEach((letterGroup) => {
+        letterGroup.userData.drifting = true;
 
-      // Generate a random drift direction and speed for each letter
-      letterGroup.userData.driftDirection = new THREE.Vector3(
-        (Math.random() - 0.5) * 0.1, 
-        (Math.random() - 0.5) * 0.1, 
-        (Math.random() - 0.5) * 0.1, 
-      );
+        // Generate a random drift direction and speed for each letter
+        letterGroup.userData.driftDirection = new THREE.Vector3(
+          // (Math.random() - 0.5) * 0.1, 
+          .0,
+          // -Math.random() * 0.1, 
+          -.1,
+          (Math.random() - 0.5) * 0.1, 
+        );
 
-      letterGroup.userData.rotationSpeed = new THREE.Vector3(
-        (Math.random() - 0.5) * 0.1,
-        (Math.random() - 0.5) * 0.1,
-        (Math.random() - 0.5) * 0.1,
-      );
-    });
-  }
+        letterGroup.userData.rotationSpeed = new THREE.Vector3(
+          (Math.random() - 0.5) * 0.1,
+          (Math.random() - 0.5) * 0.1,
+          (Math.random() - 0.5) * 0.1,
+        );
+      });
+    }
+  }, 1000);
 };
 
 export default GlowyText;
