@@ -43,8 +43,8 @@ html {
 /* example for rendering text harmoniously with three js */
 .App-header {
   position: absolute;
-  top: 20%;
-  font-family: "Doto", sans-serif;
+  top: 100%;
+  font-family: "Courier New", Courier, monospace;
   font-size: 3rem;
   color: white;
   width: 100%;
@@ -52,6 +52,7 @@ html {
   z-index: 100;
   display: block;
 }
+
 
 .User-info {
   position: absolute;
@@ -80,4 +81,19 @@ html {
 
 .Hover-area:hover {
   opacity: 0.5;
+}
+
+.Text-container {
+  font-family: "Doto", sans-serif;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+  background-size: 56px 56px;
+
+  z-index: 90;
 }

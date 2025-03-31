@@ -117,10 +117,10 @@ const SceneCanvas = ({ setTriggerAnimation }) => {
           const tmpClipFourth = THREE.AnimationUtils.makeClipAdditive(fourthClip);
           const fourthAnimation = mixer.clipAction(tmpClipFourth);
 
-          firstAnimation.setLoop(THREE.LoopRepeat, 1);
+          firstAnimation.setLoop(THREE.LoopOnce, 1);
           thirdAnimation.setLoop(THREE.LoopOnce, 1);
           secondAnimation.setLoop(THREE.LoopRepeat, Infinity);
-          fourthAnimation.setLoop(THREE.LoopOnce, Infinity);
+          fourthAnimation.setLoop(THREE.LoopRepeat, Infinity);
 
           secondAnimation.play(); // ico idle
           fourthAnimation.play(); // pyramid idle

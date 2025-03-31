@@ -1,4 +1,5 @@
 import "./App.css";
+import CardTilt from "./stuff/CardTilt";
 import SceneCanvas from "./hooks/SceneCanvas";
 import React, { useEffect } from "react";
 import UserInfo from "./stuff/UserInfo";
@@ -20,6 +21,7 @@ function App() {
     if (triggerAnimation) triggerAnimation();
     setTimeout(() => {
       scrollDown();
+      fadeOutButtonGlow();
     }, 1000);
   };
 
@@ -55,6 +57,14 @@ function App() {
     requestAnimationFrame(animateScroll);
   };
 
+  const fadeOutButtonGlow = () => {
+    const button = document.querySelector(".Hover-area");
+    if (button) {
+      button.style.transition = "opacity 0.6s ease-out";
+      button.style.opacity = "0";
+    }
+  };
+
   return (
     <div className="App">
       <div className="Background">
@@ -64,7 +74,14 @@ function App() {
         />
         <UserInfo className="User-info" />
         <button className="Hover-area" onClick={handleButtonAnims} />
-        <div style={{ height: "100vh" }}>Extra content to ensure scrolling</div>
+        <div style={{ height: "20vh" }}>asdf</div>
+
+        <CardTilt>
+          <div className="Text-container">
+            <h1 className="Text">Hello, I'm</h1>
+            <h1 className="Text">Cameron</h1>
+          </div>
+        </CardTilt>
       </div>
     </div>
   );
