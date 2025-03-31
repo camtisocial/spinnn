@@ -16,7 +16,7 @@ function CardTilt({ children }) {
         y: mouseY - (window.innerHeight) / 2,
       };
 
-      const maxRotation = 7;
+      const maxRotation = 3;
       const rotateX = -(center.y / (window.innerHeight / 2)) * maxRotation;
       const rotateY = (center.x / (window.innerWidth / 2)) * maxRotation;
       const perspective = 1000;
