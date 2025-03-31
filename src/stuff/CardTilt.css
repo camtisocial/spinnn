@@ -1,15 +1,15 @@
 .rotating-card-container {
     position: relative;
-    width: 90%;
+    width: 70%;
     height: 80%;
-    left: 5%;
+    left: 15%;
     border: none;
   }
   
   .rotating-card {
     position: relative;
     z-index: 2;
-    transition: transform 60ms ease;
+    transition: transform 3000ms ease-out;
     width: 100%;
     height: 100%;
     margin: 0;

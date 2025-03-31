@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@200;300;400;500;700;800&display=swap');
 body::-webkit-scrollbar {
   display: none; /*chrome*/
 }
@@ -38,6 +38,12 @@ html {
   font-weight: <weight>;
   font-style: normal;
   font-variation-settings: "ROND" 0;
+}
+
+.turret-road-extralight {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 200;
+  font-style: normal;
 }
 
 /* example for rendering text harmoniously with three js */
@@ -84,16 +90,14 @@ html {
 }
 
 .Text-container {
-  font-family: "Doto", sans-serif;
+  font-family: "Turret Road", sans-serif;
+  font-size: 3.5vh;
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   color: white;
   background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
-  background-size: 56px 56px;
-
+  background-size: 10vh 10vh;
   z-index: 90;
 }

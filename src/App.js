@@ -78,8 +78,10 @@ function App() {
 
         <CardTilt>
           <div className="Text-container">
-            <h1 className="Text">Hello, I'm</h1>
-            <h1 className="Text">Cameron</h1>
+            <p>
+              <span>Hello, I'm </span>
+              <span>a developer</span>
+            </p>
           </div>
         </CardTilt>
       </div>
