@@ -1,14 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@200;300;400;500;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Turret+Road:wght@200;300;400;500;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 body::-webkit-scrollbar {
   display: none; /*chrome*/
 }
 
 :root {
   --color-1: #00d5ff;
-  --color-2: #6f0099;
-  /* --color-3: #4d0077; */
+  --color-2: #8f22bb;
   --color-3: #999999;
+  --color-4: #222222;
+  --color-5: #2dba4e;
+  --color-6: #2b3137;
+  --color-7: #c5f5ba;
 }
 
 body,
@@ -17,7 +21,7 @@ html {
   padding: 0;
   overflow-x: hidden;
   -ms-overflow-style: none; /*firefox*/
-  scrollbar-width: none;  /*edge*/
+  scrollbar-width: none; /*edge*/
   overflow: hidden;
 }
 
@@ -53,6 +57,11 @@ html {
   font-style: normal;
 }
 
+.space-mono-regular {
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
 
 /* ----------SPLASH PAGE------------ */
 .App-header {
@@ -96,7 +105,6 @@ html {
   opacity: 0.5;
 }
 
-
 /* ----------NAVIGATION PAGE------------ */
 
 .Text-container {
@@ -120,27 +128,192 @@ html {
 }
 
 .Header {
-  font-family: "Turret Road", sans-serif;
-  font-size: 3.5vh;
-  text-decoration: underline;
-  text-decoration-color: var(--color-2);
-  text-decoration-thickness: .2vh;
-  text-underline-position: under;
+  font-family: "Space Mono", sans-serif;
+  font-size: 2.5vh;
+  position: relative;
+  display: inline-block;
 }
 
-.Text {
-  font-family: "Turret Road", sans-serif;
+.Header::after {
+  content: "";
+  position: absolute;
+  left: -1.3vw;
+  right: -1.3vw;
+  bottom: -0.8vh;
+  height: 0.5vh;
+  opacity: 1;
+  border-radius: 0.5vh;
+  background-color: var(--color-2);
+}
+
+.Github-stats {
+  text-decoration: none;
+  font-family: "Space Mono", sans-serif;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 1.5vh;
+  border: 0.2vh solid var(--color-5);
+  opacity: 0.8;
+  width: 80%;
+  height: 80%;
+  background-color: var(--color-4);
+  box-shadow: 0 0 10px var(--color-5);
+  position: relative;
+  display: block;
+  transition-property:
+    -moz-filter,
+    -ms-filter,
+    -o-filter,
+    -webkit-filter,
+    filter ease-in-out,
+    box-shadow ease-in-out;
+  transition-duration: 1.0s;
+}
+
+.Github-stats:hover {
+  box-shadow: 0 0 20px var(--color-5);
+  filter: brightness(1.2);
+}
+
+.GH-subsection {
+  background-color: var(--color-6);
+  color: white;
+  font-family: inherit;
+  text-decoration: none;
+  font-size: 2vh;
+  text-align: left;
+  box-shadow: 0 0 10px black;
+  border-radius: 0.5vh;
+  margin: 2vh;
+  margin-bottom: 1.5vh;
+  display: flex;
+  vertical-align: top;
+  text-wrap: pretty;
+}
+
+.GH-rectangle {
+  width: 90%;
+  height: 10%;
+}
+
+.GH-rectangle2 {
+  width: 90%;
+  height: 40%;
+  text-align: center;
+  display: inline-block;
+  margin-top: 1.2vh;
+}
+
+.GH-rectangle3 {
+  width: 90%;
+  height: 40%;
+  text-align: left;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.GH-text {
+  font-family: "Space Mono", sans-serif;
+  font-size: 1.8vh;
+  color: var(--color-7);
+  position: relative;
+  bottom: 0.8vh;
+}
+
+.GH-links {
+  font-family: "Space Mono", sans-serif;
+  font-size: 1.8vh;
+  color: var(--color-5);
+  position: relative;
+  bottom: 0.8vh;
+}
+.GH-links:hover {
+  color: var(--color-1);
+}
+
+.GH-icon {
+  margin-right: 1vh;
+  width: 3vh;
+  height: 3vh;
+}
+
+.GH-icon::after {
+  content: "";
+  position: absolute;
+  left: -1.3vw;
+  right: -1.3vw;
+  bottom: -0.8vh;
+  height: 0.5vh;
+  opacity: 1;
+  border-radius: 0.5vh;
+  background-color: var(--color-2);
+}
+
+.Profile-pic {
+  border-radius: 100%;
+  height: 11vh;
+  width: 11vh;
+  border: 0.3vh solid var(--color-5);
+  margin: 1vh;
+}
+
+.GH-list {
+  font-family: "Space Mono", sans-serif;
+  font-size: 2vh;
+  position: relative;
+  padding-left: 1vh;
+}
+
+.GH-list li {
+  margin-top: 2vh;
+  font-family: "Space Mono", sans-serif;
+  list-style-type: none;
+  text-align: left;
+}
+
+.GH-list li::before {
+  content: "★";
+  position: relative;
+  bottom: .5vh;
+  color: var(--color-3);
+}
+
+.GH-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.GH-list a:hover {
+  color: var(--color-1);
+}
+
+
+.List {
+  font-family: "Space Mono", sans-serif;
+  padding-left: 7vh;
+  text-align: left;
+  list-style: square;
+}
+
+.List li {
+  font-family: "Space Mono", sans-serif;
+  list-style-type: none;
   font-size: 2.5vh;
   text-align: left;
-  padding-left: 6vh;
 }
 
+.List li::before {
+  content: "►";
+  position: relative;
+  color: var(--color-2);
+}
 
+.List a {
+  color: inherit;
+  text-decoration: none;
+}
 
-
-
-
-
-
-
-
+.List a:hover {
+  color: var(--color-1);
+}

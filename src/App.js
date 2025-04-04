@@ -1,21 +1,34 @@
 import "./App.css";
+import { FaGithub } from "react-icons/fa";
 import CardTilt from "./stuff/CardTilt";
 import SceneCanvas from "./hooks/SceneCanvas";
 import React, { useEffect } from "react";
 import UserInfo from "./stuff/UserInfo";
+import GithubInfo from "./stuff/GhInfo";
 
 function App() {
-  useEffect(() => {
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: "auto",
-      });
-    }, 50);
-  }, []);
-
   const [triggerAnimation, setTriggerAnimation] = React.useState(null);
   const [setTriggerTextAnimation] = React.useState(null);
+  const [userInfo, setUserInfo] = React.useState(null);
+  const baseUrl = "https://api.github.com";
+
+  useEffect(() => {
+    const fetchDate = async () => {
+      const userInfo = await getGithubUserInfo("camtisocial");
+      setUserInfo(userInfo);
+      console.log("public Repos: ", userInfo.publicRepos);
+      console.log("name: ", userInfo.name);
+      console.log("avatar Url: ", userInfo.avatarUrl);
+      console.log("updated at: ", userInfo.updated_at);
+    };
+    fetchDate();
+    setTimeout(() => {
+      // window.scrollTo({
+      //   top: 0,
+      //   behavior: "auto",
+      // });
+    }, 50);
+  }, []);
 
   const handleButtonAnims = () => {
     if (triggerAnimation) triggerAnimation();
@@ -65,6 +78,17 @@ function App() {
     }
   };
 
+  async function getGithubUserInfo(userName) {
+    try {
+      const response = await fetch(`${baseUrl}/users/${userName}`);
+      const json = await response.json();
+      return new GithubInfo(json);
+    } catch (error) {
+      console.error("Error fetching GitHub user info:", error);
+      return null;
+    }
+  }
+
   return (
     <div className="App">
       <div className="Background">
@@ -78,20 +102,109 @@ function App() {
 
         <CardTilt>
           <div className="Text-container">
+            {/* ----------MAKE THIS AN ARRAY---------- */}
+            {/* ----------first column---------- */}
             <div className="Header-container">
-              <br/> <br/>
-              <h1 className="Header"> projects </h1>
-              <p className="Text"> (coming soon) </p>
+              <a
+                className="Github-stats"
+                href="https://github.com/camtisocial"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div>
+                  <div className="GH-rectangle GH-subsection">
+                    <img
+                      className="Profile-pic"
+                      src={userInfo?.avatarUrl}
+                      alt="Avatar"
+                    />
+                    <p>
+                      <strong>{userInfo?.name}</strong> <br />
+                      <FaGithub className="GH-icon" />
+                      <span className="GH-text">{userInfo?.username}</span>
+                      <br />
+                    </p>
+                  </div>
+                  <div className="GH-subsection GH-rectangle2">
+                    <strong>public repos - {userInfo?.publicRepos}</strong>
+                  </div>
+                  <div className="GH-subsection GH-rectangle3">
+                    <ul className="GH-list">
+                      <li>
+                        {" "}
+                        <a
+                          href="https://github.com/camtisocial/p2p-chess"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <span className="GH-links">
+                            <strong>p2p-chess:</strong>{" "}
+                            <span style={{ color: "white" }}>
+                              a CLI chess app with peer-to-peer multiplayer and
+                              chat
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        {" "}
+                        <a
+                          href="https://cameronthompson.org/"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <span className="GH-links">
+                            <strong>cameronthompson.org:</strong>{" "}
+                            <span style={{ color: "white" }}>
+                              built with React and lambda, hosted on AWS
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        {" "}
+                        <a
+                          href="https://github.com/camtisocial/dot-files"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <span className="GH-links">
+                            <strong>dot-files:</strong>{" "}
+                            <span style={{ color: "white" }}>
+                              modern dot files for neovim, bash, tmux, and more
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
             </div>
+            {/* ----------second column---------- */}
             <div className="Header-container">
-              <br/> <br/>
-              <h1 className="Header"> blog </h1>
-              <p className="Text"> (coming soon) </p>
+              <br /> <br />
+              <h1 className="Header"> About me</h1>
+              <ul className="List">
+
+              </ul>
             </div>
+            {/* ----------third column---------- */}
             <div className="Header-container">
-              <br/> <br/>
-              <h1 className="Header"> status </h1>
-              <p className="Text"> (coming soon) </p>
+              <br /> <br />
+              <h1 className="Header"> Blog Posts </h1>
+              <ul className="List">
+                <li>
+                  {" "}
+                  <a
+                    href="https://github.com/camtisocial/p2p-chess"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <strong>A Modest Proposal</strong>{" "}
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </CardTilt>
