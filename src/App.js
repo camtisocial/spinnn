@@ -1,5 +1,6 @@
 import "./App.css";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaReact } from "react-icons/fa";
+import { SiThreedotjs, SiGithubpages, SiArchlinux } from "react-icons/si";
 import CardTilt from "./stuff/CardTilt";
 import SceneCanvas from "./hooks/SceneCanvas";
 import React, { useEffect } from "react";
@@ -11,6 +12,9 @@ function App() {
   const [setTriggerTextAnimation] = React.useState(null);
   const [userInfo, setUserInfo] = React.useState(null);
   const baseUrl = "https://api.github.com";
+
+  const currentlyReading = "9 Stories - J.D. Salinger";
+  const currentlyLearning = "Three JS, lua, rust, opengl";
 
   useEffect(() => {
     const fetchDate = async () => {
@@ -141,7 +145,7 @@ function App() {
                             <strong>p2p-chess:</strong>{" "}
                             <span style={{ color: "white" }}>
                               a CLI chess app with peer-to-peer multiplayer and
-                              chat
+                              chat. Packaged for debian and arch linux
                             </span>
                           </span>
                         </a>
@@ -156,7 +160,8 @@ function App() {
                           <span className="GH-links">
                             <strong>cameronthompson.org:</strong>{" "}
                             <span style={{ color: "white" }}>
-                              built with React and lambda, hosted on AWS
+                              React frontend and serverless backend, hosted with
+                              AWS
                             </span>
                           </span>
                         </a>
@@ -184,10 +189,40 @@ function App() {
             {/* ----------second column---------- */}
             <div className="Header-container">
               <br /> <br />
-              <h1 className="Header"> About me</h1>
-              <ul className="List">
-
-              </ul>
+              <h1 className="Header"> About </h1>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "70px" }}
+              >
+                <img
+                  className="Profile-pic-2"
+                  src={"/IMG_4652.jpg"}
+                  alt="Avatar"
+                />
+                <span> {"<------ me"} </span>
+              </div>
+              <p className="About-text">
+                <br />
+                Hi, thanks for looking at my website. Coding stuff to the left,
+                nonsense to the right.
+                <br />
+                <br />
+              </p>
+              <table className="About-table">
+                <tr>
+                </tr>
+                <tr>
+                  <th>Age:</th>
+                  <td>26</td>
+                </tr>
+                <tr>
+                  <th>Location:</th>
+                  <td>Austin</td>
+                </tr>
+                <tr>
+                  <th>Reading:</th>
+                  <td>{currentlyReading} </td>
+                </tr>
+              </table>
             </div>
             {/* ----------third column---------- */}
             <div className="Header-container">

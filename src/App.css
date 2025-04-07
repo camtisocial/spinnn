@@ -258,6 +258,33 @@ html {
   margin: 1vh;
 }
 
+.Profile-pic-2 {
+  display: flex;
+  position: relative;
+  left: 14%;
+  margin-top: 3vh;
+  margin-left: 1vh;
+  height: 23vh;
+  width: 24vh;
+  /* border: 0.3vh solid var(--color-5); */
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.8;
+}
+
+.About-text{
+  font-family: "Space Mono", sans-serif;
+  font-size: 1.7vh;
+  position: relative;
+  bottom: 0.8vh;
+  width: 95%;
+  left: 1vh;
+  top: 2%;
+  text-wrap: pretty;
+  text-align: center;
+}
+
+
 .GH-list {
   font-family: "Space Mono", sans-serif;
   font-size: 2vh;
@@ -275,17 +302,13 @@ html {
 .GH-list li::before {
   content: "★";
   position: relative;
-  bottom: .5vh;
+  bottom: 0.8vh;
   color: var(--color-3);
 }
 
 .GH-list a {
   color: inherit;
   text-decoration: none;
-}
-
-.GH-list a:hover {
-  color: var(--color-1);
 }
 
 
@@ -317,3 +340,21 @@ html {
 .List a:hover {
   color: var(--color-1);
 }
+
+.About-table {
+  font-family: "Space Mono", sans-serif;
+  text-align: left;
+  position: relative;
+  padding-left: 5vh;
+  font-size: 1.5vh;
+}
+
+th {
+  padding-right: 3vh;
+  font-size: 2vh;
+}
+
+td {
+  font-size: 1.5vh;
+}
+
