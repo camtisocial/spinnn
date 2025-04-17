@@ -1,4 +1,5 @@
 import "./Home.css";
+import "../pages/Blog.js";
 import { FaGithub, FaReact } from "react-icons/fa";
 import { SiThreedotjs, SiGithubpages, SiArchlinux } from "react-icons/si";
 import CardTilt from "../stuff/CardTilt";
@@ -6,6 +7,7 @@ import SceneCanvas from "../hooks/SceneCanvas";
 import React, { useEffect } from "react";
 import UserInfo from "../stuff/UserInfo";
 import GithubInfo from "../stuff/GhInfo";
+import Blog from "../pages/Blog.js";
 
 function Home() {
   const [triggerAnimation, setTriggerAnimation] = React.useState(null);
@@ -27,10 +29,10 @@ function Home() {
     };
     fetchDate();
     setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: "auto",
-      });
+      // window.scrollTo({
+      //   top: 0,
+      //   behavior: "auto",
+      // });
     }, 50);
   }, []);
 
@@ -198,7 +200,7 @@ function Home() {
                   src={"/IMG_4652.jpg"}
                   alt="Avatar"
                 />
-                <span style={{fontSize: "2vh"}}> {"<------ me"} </span>
+                <span style={{ fontSize: "2vh" }}> {"<------ me"} </span>
               </div>
               <p className="About-text">
                 <br />
@@ -208,8 +210,7 @@ function Home() {
                 <br />
               </p>
               <table className="About-table">
-                <tr>
-                </tr>
+                <tr></tr>
                 <tr>
                   <th>Age:</th>
                   <td>25</td>
@@ -225,22 +226,8 @@ function Home() {
               </table>
             </div>
             {/* ----------third column---------- */}
-            <div className="Header-container">
               <br /> <br />
-              <h1 className="Header"> Blog Posts </h1>
-              <ul className="List">
-                <li>
-                  {" "}
-                  <a
-                    href="https://github.com/camtisocial/p2p-chess"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <strong>A Modest Proposal</strong>{" "}
-                  </a>
-                </li>
-              </ul>
-            </div>
+              <Blog />
           </div>
         </CardTilt>
       </div>
