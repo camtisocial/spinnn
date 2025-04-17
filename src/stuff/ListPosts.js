@@ -1,9 +1,10 @@
-function Blog () {
+import { Link } from "react-router-dom";
+function ListPosts () {
   const blogPosts = [
     {
       title: "A Modest Proposal",
       date: "2023-10-01",
-      link: "/blog/a-modest-proposal",
+      slug: "a-modest-proposal",
     },
   ];
 
@@ -12,11 +13,11 @@ function Blog () {
       <br /> <br />
       <h1 className="Header"> Blog Posts </h1>
       <ul className="List">
-        {blogPosts.map((post, index) => (
-          <li key={index}>
-            <a href={post.link} target="_blank" rel="noopener noreferrer">
+        {blogPosts.map((post) => (
+          <li key={post.slug}>
+            <Link to={`posts/${post.slug}`}>
               {post.title} - {post.date}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -24,4 +25,4 @@ function Blog () {
   );
 }
 
-export default Blog;
+export default ListPosts;

@@ -1,0 +1,51 @@
+body {
+  background-color: #000000;
+}
+
+.blog-post {
+  background-color: #ffffff;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+  line-height: 1.6;
+}
+
+.blog-post h1,
+.blog-post h2,
+.blog-post h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.blog-post p {
+  margin-bottom: 1.25rem;
+  font-size: 1.1rem;
+}
+
+.blog-post img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.blog-post ul {
+  padding-left: 1.5rem;
+  list-style: disc;
+  margin-bottom: 1.25rem;
+}
+
+.blog-post blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+  color: #555;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+.blog-post code {
+  background-color: #f4f4f4;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace;
+}

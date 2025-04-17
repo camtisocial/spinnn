@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Blog from './pages/Blog';
+import BlogPost from './pages/Blog.jsx';
 
 
 function App() {
@@ -10,8 +10,8 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route exact path="/" element={<Home />} />
+          <Route path="posts/:slug" element={<BlogPost />} />
         </Routes>
       </Router>
     </div>
@@ -19,4 +19,3 @@ function App() {
 }
 
 export default App;
-

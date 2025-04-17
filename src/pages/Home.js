@@ -1,13 +1,12 @@
 import "./Home.css";
-import "../pages/Blog.js";
-import { FaGithub, FaReact } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { SiThreedotjs, SiGithubpages, SiArchlinux } from "react-icons/si";
 import CardTilt from "../stuff/CardTilt";
 import SceneCanvas from "../hooks/SceneCanvas";
 import React, { useEffect } from "react";
 import UserInfo from "../stuff/UserInfo";
 import GithubInfo from "../stuff/GhInfo";
-import Blog from "../pages/Blog.js";
+import ListPosts from "../stuff/ListPosts.js";
 
 function Home() {
   const [triggerAnimation, setTriggerAnimation] = React.useState(null);
@@ -227,7 +226,7 @@ function Home() {
             </div>
             {/* ----------third column---------- */}
               <br /> <br />
-              <Blog />
+              <ListPosts />
           </div>
         </CardTilt>
       </div>
