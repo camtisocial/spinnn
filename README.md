@@ -1,1 +1,1 @@
-https://camtisocial.github.io/spin/
+https://camtisocial.github.io/spinnn/
