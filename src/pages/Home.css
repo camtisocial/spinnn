@@ -327,7 +327,7 @@ html {
 }
 
 .List li::before {
-  content: "►";
+  content: "►  ";
   position: relative;
   color: var(--color-2);
 }

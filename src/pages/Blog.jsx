@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 import "./Blog.css";
+import "./Home.css";
 
 export default function BlogPost() {
   const { slug } = useParams();

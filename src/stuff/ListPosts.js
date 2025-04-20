@@ -16,7 +16,7 @@ function ListPosts () {
         {blogPosts.map((post) => (
           <li key={post.slug}>
             <Link to={`posts/${post.slug}`}>
-              {post.title} - {post.date}
+              {post.title}
             </Link>
           </li>
         ))}

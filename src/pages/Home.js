@@ -28,10 +28,10 @@ function Home() {
     };
     fetchDate();
     setTimeout(() => {
-      // window.scrollTo({
-      //   top: 0,
-      //   behavior: "auto",
-      // });
+      window.scrollTo({
+        top: 0,
+        behavior: "auto",
+      });
     }, 50);
   }, []);
 
@@ -203,8 +203,7 @@ function Home() {
               </div>
               <p className="About-text">
                 <br />
-                Hi, thanks for looking at my website. Coding stuff to the left,
-                nonsense to the right.
+                Hi, thanks for looking at my website; carry on.
                 <br />
                 <br />
               </p>
