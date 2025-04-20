@@ -8,10 +8,10 @@ import BlogPost from './pages/Blog.jsx';
 function App() {
   return (
     <div>
-      <Router>
+      <Router basename="/spinnn">
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="posts/:slug" element={<BlogPost />} />
+          <Route path="/posts/:slug" element={<BlogPost />} />
         </Routes>
       </Router>
     </div>
