@@ -196,14 +196,14 @@ function Home() {
               >
                 <img
                   className="Profile-pic-2"
-                  src={"/IMG_4652.jpg"}
+                  src={`${process.env.PUBLIC_URL}/images/IMG_4652.jpg`}
                   alt="Avatar"
                 />
                 <span style={{ fontSize: "2vh" }}> {"<------ me"} </span>
               </div>
               <p className="About-text">
                 <br />
-                Hi, thanks for looking at my website; carry on.
+                Hi, thanks for looking at my website. I post here once in a while. You can find my contact info on github.
                 <br />
                 <br />
               </p>

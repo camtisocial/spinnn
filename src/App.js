@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import BlogPost from './pages/Blog.jsx';
@@ -8,7 +9,7 @@ import BlogPost from './pages/Blog.jsx';
 function App() {
   return (
     <div>
-      <Router basename="/spinnn">
+      <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/posts/:slug" element={<BlogPost />} />

@@ -9,7 +9,7 @@ export default function BlogPost() {
   const [content, setContent] = useState("Loading...");
 
   useEffect(() => {
-    const path = `/posts/${slug}.md`;
+    const path = `posts/${slug}.md`;
 
     fetch(path)
       .then((res) => {
